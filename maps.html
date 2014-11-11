@@ -24,20 +24,11 @@
 
         var myLatlng = new google.maps.LatLng(40.7293, -73.9906);
 
-        //cooper union
-          var position = new google.maps.LatLng(40.7291, -73.9906);
-
-          var markerOptions = {
-              position: position,
-              map: map,
-              title:"Hello World",
-              icon: 'https://pbs.twimg.com/profile_images/457985900/CU_Logo_Twitter_normal.jpg' //url to images
-          };
 
            //menkui tei
           var MenkuiPosition = new google.maps.LatLng(40.7291571,-73.9901914);
 
-          var markerOptions = {
+          var MenkuiMarkerOptions = {
               position: MenkuiPosition,
               map: map,
               title:"Thank you for Waiting! See you Soon!",
@@ -45,7 +36,7 @@
           };
 
           // To add the marker to the map, use the 'map' property
-          var marker = new google.maps.Marker(markerOptions);
+          var MenkuiMarker = new google.maps.Marker(MenkuiMarkerOptions);
 
         //starbucks
           var starbucksPosition = new google.maps.LatLng(40.730007, -73.991638);
