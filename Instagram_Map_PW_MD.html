@@ -13,7 +13,7 @@
         padding: 0px;
       }
     </style>
-}
+
 <!-- getJSON( / sunny%20AND%20weather)
 
 10 most recent. 
@@ -64,7 +64,8 @@ for(var i=0; i<response.length; i++) {
           {
             'title':response[i].caption.text,
             'map': new google.maps.LatLng(latitude, longitude),
-            'link':'http://cooper.edu'
+            'link': response[i].link, // link to instagram post
+            'icon': 'http://png-3.findicons.com/files/icons/480/weather/24/sunny.png'
           });
         };
       };
