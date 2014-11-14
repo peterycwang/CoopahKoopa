@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<!-- Use stuff on the website Twitter, to get something random. Relate two things so not just taking from a twitterfeed --> 
+<html>
+	<head>
+		<style>
+		body{
+			background-color: violet;
+		}
+
+		h1{
+			display: block;
+			background-color: #66FFFF;
+			border: 5px solid blue;
+			width:150px;
+		}
+		</style>
+
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script>
+
+			$(document).ready(function(){
+			
+				$.getJSON("http://cooper-union-search-proxy.herokuapp.com/twitter/search/from%3Aslickdeals%20AND%20Free%20Shipping", function(response){
+
+					console.log(response); 
+
+					var one = confirm("Want the latest deals from Amazon, Walmart, Macy's and E-Bay?");
+					var two = confirm("Are you too lazy to go to the store and pick them up?");
+					var three = confirm("Are you too cheap to pay for shipping?");
+					var sadImage = "<img src = http://images4.fanpop.com/image/photos/16100000/Sad-Puppy-puppies-16144434-320-240.jpg />";
+					var happyImage = "<img src = http://2.bp.blogspot.com/-fSnhVk53et0/TrIGGXsOlnI/AAAAAAAAC0E/A4Mytl2TDiA/s320/cute-puppy-face4.jpg />";
+
+
+					$("body").append("<p> Courtesy of </p> <h1> <a href = https://twitter.com/slickdeals> SlickDeals </a></h1>");
+
+					var Deals = function(){
+						
+						$("body").append("<h3> The 15 Most Recent Freely Shipped DEALS! </h3> <p> </p>")
+						for(var i = 0; i < 15; i++){
+							$("body").append("<li>" + "<a href = " + response.statuses[i].entities.urls[0].url + "> Link " + (i+1) + " </a>" + "-------" + response.statuses[i].text  + "</li>"); 
+							$("body").append("Posted at Pacific Time: " +response.statuses[i].created_at + "<p> </p> <p> </p>")
+						// This is adding the URL of each deal and the contents of each deal (text)
+						};
+					};
+
+					if((one || two || three) === true){
+						console.log("yay!");
+						$("body").append("<p> Then we've got the site for you! </p>");
+						$("body").append("<p>" + happyImage + "</p>");
+						Deals();
+					}
+					else{
+						console.log("no");
+						$("body").append("Then this site probably isn't for you...");
+						$("body").append("<p>" + sadImage + "</p>");
+						$("body").append("JK here it is anyway.");
+						Deals();
+
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<!-- Pseudodocument --> 
+<html>
+<head>
+      <title>Instagram Map</title>
+       <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+      <meta charset="utf-8">
+<!-- getJSON( / sunny%20AND%20weather)
+
+10 most recent. 
+icon = sunny.gif -->
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script> <!-- JQUERY SCRIPT -->
+ <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> <!--GOOGLE MAPS SCRIPT -->
+    <script>
+
+			$(document).ready(function(){
+			
+				$.getJSON("http://cooper-union-instagram-proxy.herokuapp.com/search/tag/sunnynyc", function(response){
+
+					console.log(response); 
+
+// if Location != null Loop; 
+// instagram.length
+console.log(response.length);
+
+for(var i=0; i<response.length; i++) {
+  if(response[i].location != null) {
+              //do something with only the photos that contain a location
+              $("body").append('<p>'+response[i].location.latitude + ' ' + response[i].location.longitude+'</p>');
+            }
+          }
+/*
+var map;
+      var initialize = function() {
+        var mapOptions = {
+          zoom: 19,
+          center: new google.maps.LatLng(40.7291571,-73.9901914)
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        var myLatlng = new google.maps.LatLng(40.7293, -73.9906);
+
+
+<!-- QUERY sunny&weather -->
+
+for(var i = 0; i <24, i++){
+	var sunnyimg = 'https://irs3.4sqi.net/img/general/50x50/SgNTZ1rf5sU7AnVd1nm1pyJuLHjMU-AFwXyu3390bDc.jpg';
+	var latitude = response[i].location.latitude;
+	var longitude = response[i].location.latitude;
+   var Position = new google.maps.LatLng(latitude, longitude);
+
+          var MarkerOptions = {
+              position: Position,   
+              map: map,
+              title:"Thank you for Waiting! See you Soon!",
+              icon: sunnyimg //url to images
+          };
+
+         }
+
+
+
+
+     }); // closes map function */
+     }); //closes getJSON
+     }); //closes readyfunction
+  </script>
+</head>
+  </html>
