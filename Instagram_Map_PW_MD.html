@@ -31,17 +31,24 @@ icon = sunny.gif -->
 // if Location != null Loop; 
 // instagram.length
 console.log(response.length);
+var first = ["Kiwi"];
 
 for(var i=0; i<response.length; i++) {
   if(response[i].location != null) {
               //do something with only the photos that contain a location
-              $("body").append('<p>'+response[i].caption.text + '</p>');
-              $("body").append('<p>'+response[i].location.latitude + ' ' + response[i].location.longitude+'</p>');
-            }
+              
+              first.push(response[i].caption.text); 
+              //$("body").append('<p>'+response[i].caption.text + '</p>');
+              //$("body").append('<p>'+response[i].location.latitude + ' ' + response[i].location.longitude+'</p>');
+              console.log(response[i].caption.text);
+                          }
           } 
- 
+console.log(first);
+
+          
+
                }); //closes getJSON
-     }); //closes readyfunction
+
 
 var map;
       var initialize = function() {
@@ -57,7 +64,7 @@ var map;
           var markerOptions = {
               position: position,
               map: map,
-              title:"Hello World",
+              title: "hello world",
               icon: 'https://pbs.twimg.com/profile_images/457985900/CU_Logo_Twitter_normal.jpg' //url to images
           };
            var marker = new google.maps.Marker(markerOptions);
@@ -87,7 +94,8 @@ for(var i = 0; i <24, i++){
 */
 
      }; // closes map function 
-      google.maps.event.addDomListener(window, 'load', initialize);
+      google.maps.event.addDomListener(window, 'load', initialize);    
+     }); //closes readyfunction
 </script>
 
 </head>
