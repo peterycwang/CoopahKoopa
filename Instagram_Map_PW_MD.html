@@ -53,26 +53,26 @@ for(var i=0; i<response.length; i++) {
               console.log(response[i].caption.text);
                           }
           } 
-
+          console.log(first);
           
         var mapOptions = {
           zoom: 19,
           center: new google.maps.LatLng(40.7293, -73.9906)
         };
 
-        var positions = [
+        var positions = [ // marker info for title, locaton and link
           {
-            'title':'Foundation building',
+            'title':first[0],
             'map': new google.maps.LatLng(40.7291, -73.9906),
             'link':'http://cooper.edu'
           },
           {
-            'title':'Cooper Square Park',
+            'title':first[1],
             'map':new google.maps.LatLng(40.72875, -73.9908),
             'link':'http://cooper.edu'
           },
           {
-            'title':'Cooper Union New Building',
+            'title':first[2],
             'map': new google.maps.LatLng(40.7287, -73.99025),
             'link':'http://cooper.edu'
           }
