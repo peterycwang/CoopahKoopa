@@ -10,9 +10,10 @@
       html, body, #map {
         height: 100%;
         margin: 0px;
-        padding: 0px
+        padding: 0px;
       }
     </style>
+}
 <!-- getJSON( / sunny%20AND%20weather)
 
 10 most recent. 
@@ -25,9 +26,6 @@ icon = sunny.gif -->
    
 
 			$(document).ready(function(){
-
-	   var first = ["Kiwi"];
-     
 
 
       
@@ -42,10 +40,15 @@ icon = sunny.gif -->
 // instagram.length
 console.log(response.length);
 
+var mapOptions = {
+          zoom: 12,
+          center: new google.maps.LatLng(40.7293, -73.9906) //centered at cooper, but zoomed to manhattan
+        };
+var positions = [];
 
 for(var i=0; i<response.length; i++) {
   if(response[i].location != null) {
-              //do something with only the photos that contain a location
+              /* //do something with only the photos that contain a location
               
               first.push(response[i].caption.text); 
               //$("body").append('<p>'+response[i].caption.text + '</p>');
@@ -53,31 +56,19 @@ for(var i=0; i<response.length; i++) {
               console.log(response[i].caption.text);
                           }
           } 
-          console.log(first);
-          
-        var mapOptions = {
-          zoom: 19,
-          center: new google.maps.LatLng(40.7293, -73.9906)
+          console.log(first);*/ 
+        var latitude = response[i].location.latitude;
+        var longitude = response[i].location.longitude;
+
+        positions.push(
+          {
+            'title':response[i].caption.text,
+            'map': new google.maps.LatLng(latitude, longitude),
+            'link':'http://cooper.edu'
+          });
         };
-
-        var positions = [ // marker info for title, locaton and link
-          {
-            'title':first[0],
-            'map': new google.maps.LatLng(40.7291, -73.9906),
-            'link':'http://cooper.edu'
-          },
-          {
-            'title':first[1],
-            'map':new google.maps.LatLng(40.72875, -73.9908),
-            'link':'http://cooper.edu'
-          },
-          {
-            'title':first[2],
-            'map': new google.maps.LatLng(40.7287, -73.99025),
-            'link':'http://cooper.edu'
-          }
-        ];
-
+      };
+        console.log(positions);
         draw('map', mapOptions, positions);
 
 
