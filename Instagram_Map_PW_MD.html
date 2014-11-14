@@ -26,7 +26,7 @@ icon = sunny.gif -->
 			
 				$.getJSON("http://cooper-union-instagram-proxy.herokuapp.com/search/tag/sunnynyc?count=50", function(response){
 
-					/* console.log(response); 
+				console.log(response); 
 
 // if Location != null Loop; 
 // instagram.length
@@ -39,13 +39,11 @@ for(var i=0; i<response.length; i++) {
               $("body").append('<p>'+response[i].location.latitude + ' ' + response[i].location.longitude+'</p>');
             }
           } 
- */
+ 
                }); //closes getJSON
      }); //closes readyfunction
-</script>
 
-<script>
-      var map;
+var map;
       var initialize = function() {
         var mapOptions = {
           zoom: 12,
@@ -71,9 +69,9 @@ for(var i=0; i<response.length; i++) {
 <!-- QUERY sunny&weather -->
 
 for(var i = 0; i <24, i++){
-	var sunnyimg = 'https://irs3.4sqi.net/img/general/50x50/SgNTZ1rf5sU7AnVd1nm1pyJuLHjMU-AFwXyu3390bDc.jpg';
-	var latitude = response[i].location.latitude;
-	var longitude = response[i].location.latitude;
+  var sunnyimg = 'https://irs3.4sqi.net/img/general/50x50/SgNTZ1rf5sU7AnVd1nm1pyJuLHjMU-AFwXyu3390bDc.jpg';
+  var latitude = response[i].location.latitude;
+  var longitude = response[i].location.latitude;
    var Position = new google.maps.LatLng(latitude, longitude);
 
           var MarkerOptions = {
@@ -90,8 +88,8 @@ for(var i = 0; i <24, i++){
 
      }; // closes map function 
       google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 
-  </script>
 </head>
 <body>
     <div id="map-canvas"></div>
