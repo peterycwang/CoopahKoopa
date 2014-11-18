@@ -42,19 +42,20 @@
         var positions = [];
         for(var i=0; i<=14; i++){
             $.getJSON(cityURLs[i], function(response){   // accessing api data through response var object
-             
+                positions[i]= [];
+
                 realTemp = response.current_observation.temp_f;
                 feelsTemp = Number(response.current_observation.feelslike_f);
                 windSpeed = response.current_observation.wind_mph;
 
                 // console.log(windSpeed + " " + realTemp + " " + feelsTemp);    // using "feelslike" so windchill temps without wind still have existing temperatures rather than NA
-                positions.push(realTemp);
-                positions.push(feelsTemp);
-                positions.push(windSpeed);
+                positions[i].push(realTemp);
+                positions[i].push(feelsTemp);
+                positions[i].push(windSpeed);
 
-                 console.log(positions);
+                    console.log(positions[i]);
 
-                if(i === 14) { // hack
+                if(i == 1) { // hack
                     console.log("hi");
                     //drawChart(positions);
 
