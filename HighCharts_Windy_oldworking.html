@@ -18,12 +18,40 @@
                     },
 
                     title: {
-                        text: 'Highcharts Bubbles'
+                        text: 'Windspeed and Realfeel'
                     },
 
-                    series: [{  // data accepts arrays of arrays of 3 objects.
-                        data: bubbledata    // only plotting one series
-                    }]
+                    xAxis: {
+                    title: {
+                        text: 'Temperature (deg F)'
+                    }},
+
+                    yAxis: {
+                    title: {
+                        text: 'Realfeel Temperature (deg F)'
+                    }},
+
+                    series: [
+                        {  // data accepts arrays of arrays of 3 objects.
+                            name: 'Windspeed',
+                            data: bubbledata    // only plotting one series
+                        }, 
+
+                        {
+                            type: 'line',
+                            name: 'Reference Line',
+                            data: [[40, 40], [75, 75]], // slope 1, so 1 to 1 correspondence of Temp and Realfeel Temp
+                            marker: {
+                                enabled: false
+                            },
+                            states: {
+                                hover: {
+                                    lineWidth: 0
+                                }
+                            },
+                            enableMouseTracking: false
+                        }
+                     ]
                 });
             };
         // array of websites, cities across the U.S.
