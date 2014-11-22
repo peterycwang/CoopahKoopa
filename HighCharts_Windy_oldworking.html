@@ -40,6 +40,7 @@
         };
         
         var positions = [];
+        var winddata = [];
         for(var i=0; i<=14; i++){
             $.getJSON(cityURLs[i], function(response){   // accessing api data through response var object
                 positions[i]= [];
@@ -52,19 +53,22 @@
                 positions[i].push(realTemp);
                 positions[i].push(feelsTemp);
                 positions[i].push(windSpeed);
-
+                    winddata.push(positions[i]);
                     console.log(positions[i]);
+                    console.log(winddata);
 
-                if(i == 1) { // hack
+                if(i === 14) { 
                     console.log("hi");
                     //drawChart(positions);
 
-                };
+                }; // closes if loop
 
-            });
+            });     // closes getJSON
 
 
-        };
+        }; // closes for loop with getJSONs 
+
+
         drawChart();
         // define drawChart inside readyfunction and script tag
 

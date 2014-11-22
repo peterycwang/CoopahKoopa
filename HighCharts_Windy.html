@@ -2,6 +2,9 @@
 <html>
 <head>
  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script>
     $(document).ready(function(){
 
@@ -18,7 +21,7 @@
         for(var i=0; i<=14; i++){
         
         $.getJSON(cityURLs[i], function(response){   // accessing api data through response var object
-        positions[i] = [];
+        positions[i] = [];  // positions[i] itself is an array, array of arrays
         windSpeed = response.current_observation.wind_mph;
         realTemp = response.current_observation.temp_f;
         feelsTemp = Number(response.current_observation.feelslike_f);
@@ -27,17 +30,15 @@
         positions[i].push(realTemp);
         positions[i].push(feelsTemp);
 
+        
         console.log(positions);    // using "feelslike" so windchill temps without wind still have existing temperatures rather than NA
+        
+        });  // closes getJSON
+        };  // closes for loop with getJSONs
 
-        });
-        };
 
-
-        });
+        }); // closes readyfunction
     </script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/highcharts-more.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
 
 
   <script>
