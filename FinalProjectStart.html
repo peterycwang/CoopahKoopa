@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	body{
+	background-color: cyan;	
+	}
+	.fancy{
+	color: red;
+	width: 100%;
+	margin-bottom: 2px;
+	}
+</style>
+ <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        // array of websites, cities across the U.S.
+        var cities = ["NY/Manhattan", "CA/Los_Angeles", "IL/Chicago", "TX/Houston", "PA/Philadelphia", "AZ/Phoenix", "FL/Jacksonville", "IN/Indianapolis", "OH/Columbus", "NC/Charlotte", "MI/Detroit", "TN/Memphis", "MA/Boston", "WA/Seattle", "DC/Washington"]; 
+        
+        var positions = [];
+     
+        
+            $.getJSON("http://cooper-union-weather-proxy.herokuapp.com/weather/NY/Manhattan", function(response){   // accessing api data through response var object
+                
+                weather = response.current_observation.weather;
+				var youtubeURL = "http://cooper-union-youtube-proxy.herokuapp.com/search/video/" + weather; 
+				console.log(youtubeURL);
+
+					// inner getJSON youtube part
+					$.getJSON(youtubeURL, function(response){   // accessing api data through response var object
+		        	for(var i=0; i<15; i++){
+			            var title = response[i].title;
+			            var imgURL = response[i].thumbnails[0].url;
+
+			            var displayImage = "<img src = " + imgURL + " />";
+			        	$("body").append("<p>" + title + "</p");
+			        	$("p").addClass("fancy");
+			        	$("body").append(displayImage)     
+			        	console.log(displayImage);   
+			        }	
+
+
+		            });     // closes getJSON
+
+            });     // closes getJSON
+
+         
+
+           
+
+// closes for loop with getJSONs 
+
+
+        // define drawChart inside readyfunction and script tag
+
+
+        // end outside code
+        });
+    </script>
+
+</head>
+
+</html>

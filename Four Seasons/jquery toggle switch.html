@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery Example</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+			$(document).ready(function(){
+
+				var counter = 0;
+				$(".switch").click(function(){
+
+					counter = counter + 1;
+					console.log("Summer in Arendelle");
+					console.log(counter);
+
+					//Make it winter
+					$(".season").toggleClass("winter");
+
+					//click Anna, swap to Elsa to show "winter"
+					$("#clicksummer").toggleClass("hidden"); 
+					// turn off Anna
+					$("#clickwinter").toggleClass("hidden");
+					// turn on Elsa (originally hidden)
+
+				});
+
+
+
+
+			});
+		</script>
+		<style>
+			
+			/*styles for the season*/
+			.season {
+				width:428px;
+				height: 424px;
+				display:block;
+				background-image:url(summer.jpg);
+				-webkit-transition: background-image 2s;
+
+			}
+
+			.winter {
+				background-image:url(winter.jpg);
+			}
+
+			/*styles for the switches*/
+			.switch {
+				width:350px;
+				height:819px;
+			}
+
+			#clickwinter {
+				background-image:url(Anna.jpg);
+			}
+
+			#clicksummer {
+				background-image:url(Elsa.jpg);
+			}
+
+			/*generic page styles*/
+			.hidden {
+				display:none;
+			}
+
+			div {
+				float:left;
+			}
+
+			
+
+		</style>
+	</head>
+	<body>
+		<!-- The two images of the switch -->
+		<div class="switch" id="clickwinter"></div>
+		<div class="switch hidden" id="clicksummer"></div>
+
+		<div class="season"></div>
+
+	</body>
+</html>
+
+
