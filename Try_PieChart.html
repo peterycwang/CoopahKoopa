@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<!-- Media Study VEVO videos -->
 <html>
 <head>
 <style>
     body{
-    background-color: cyan; 
+    background-color: gainsboro; 
     }
     .fancy{
     color: red;
@@ -17,51 +18,96 @@
 
 
 <script>
+
+
 $(function () {
 
     $(document).ready(function () {
 
-        // Build the chart
-        $('#container').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Browser market shares at a specific website, 2014'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
+        $.getJSON("http://cooper-union-youtube-proxy.herokuapp.com/search/video/VEVO", function(response){   // accessing api data through response var object
+                            // response is an array in this case
+
+            console.log(response.length);
+            
+
+            var zeromin = 0;
+            var onemin = 0;
+            var twomin = 0;
+            var threemin = 0;
+            var fourmin = 0;
+            var fivemin = 0;
+            var sixminandup = 0;
+            var counter = 1;
+            var positions = [];
+
+            for(var i=0; i<response.length; i++){
+                var duration = response[i].duration;
+                counter += 1;
+                if(duration <60){
+                    zeromin = zeromin + 1;
+                } else if(duration <120){
+                    onemin = onemin +1;
+                } else if(duration <180){
+                    twomin = twomin +1;
+                } else if(duration <240){
+                    threemin = threemin +1;
+                } else if(duration <300){
+                    fourmin = fourmin +1;
+                } else if(duration<360){
+                    fivemin = fivemin +1;
+                } else{
+                    sixminandup = sixminandup +1;
+                };
+                console.log(duration);
+                if(counter === 15){
+                    positions.push(['Zero Minutes', zeromin]);
+                    positions.push(['One Minute', onemin]);
+                    positions.push(['Two Minutes', twomin]);
+                    positions.push(['Three Minutes', threemin]);
+                    positions.push(['Four Minutes', fourmin]);
+                    positions.push(['Five Minutes', fivemin]);
+                    positions.push(['Six Minutes and Up', sixminandup]);
+                    console.log(positions);
+                    drawChart(positions);
+                };
+
+
+
+            };
+    });
+
+                var drawChart = function(positions){ 
+                // Build the chart
+                $('#container').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
                     },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
-                    {
-                        name: 'Chrome',
-                        y: 12.8,
-                        sliced: true,
-                        selected: true
+                    title: {
+                        text: 'Browser market shares at a specific website, 2014'
                     },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
-                ]
-            }]
-        });
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: positions
+                    }]
+                });
+            };
+
     });
 
 });
