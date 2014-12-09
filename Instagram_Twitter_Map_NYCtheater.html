@@ -36,7 +36,7 @@
           position: positions[i].map,
           map: map,
           title: positions[i].title,
-          icon: 'http://png-3.findicons.com/files/icons/480/weather/32/sunny.png' //url to images
+          icon: positions[i].icon, //url to images
           });
 
       }
@@ -86,7 +86,7 @@
  
           var mapOptions = {
           zoom: 12,
-          center: new google.maps.LatLng(40.7293, -73.9906) //centered at cooper, but zoomed to manhattan
+          center: new google.maps.LatLng(40.75, -73.9906) //centered at cooper, but zoomed to manhattan
           };
           var positions = [];
 
@@ -100,7 +100,11 @@
                   'title':response[i].caption.text,
                   'map': new google.maps.LatLng(latitude, longitude),
                   'link': response[i].link, // link to instagram post
-                  'icon': 'http://png-3.findicons.com/files/icons/480/weather/32/sunny.png'
+                  'icon': {   // make it an object rather than just a URL so can edit size.
+                      "url": response[i].images.thumbnail.url,
+                      "size": new google.maps.Size(50,50),
+                      "origin": new google.maps.Point(20,20)
+                          }
                 });
               };
             };
