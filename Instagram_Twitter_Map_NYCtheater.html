@@ -10,6 +10,28 @@
         margin: 0px;
         padding: 0px;
       }
+
+      #map{
+        width: 700px;
+      }
+      .fancy{
+        text-align: center;
+        font-family: cursive;
+        color: cyan;
+        background-color: blue;
+        display:block;
+        width: 30%;
+        margin-left: 35%;
+
+      }
+      .silly{
+        height: 10%;
+      }
+      .silly2{
+        height: 10%;
+        float: right;
+      }
+
       </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> <!--JQUERY SCRIPT -->
 
@@ -40,8 +62,9 @@
           map: map,
           title: positions[i].title,
           icon: positions[i].icon, //url to images
+          animation: positions[i].animation
           });
-
+        
       }
 
        //loop through the markers, and add pop-up windows to them
@@ -78,6 +101,7 @@
 } //end of the initiazlize function
 
     //END OF DRAW FUNCTION
+    //Start HighCharts drawChart Function 
     var drawChart = function(trend){ 
                 // Build the chart
                 $('#container').highcharts({
@@ -109,6 +133,7 @@
                     }]
                 });
             };
+    // End High charts drawChart function
 
     //START OF INSTAGRAM AND MAP
       var trend = []; 
@@ -140,8 +165,10 @@
                       "url": response[i].images.thumbnail.url,
                       "size": new google.maps.Size(50,50),
                       "origin": new google.maps.Point(20,20) // sets so image more centered
-                          }
+                          },
+                  'animation': google.maps.Animation.BOUNCE,
                 });
+                 
               };
             };
             trend.push(['Instagramcracker', response.length]);
@@ -171,6 +198,11 @@
 </script>
 </head>
 <body>
+  <img class = "silly" src = "http://img2.wikia.nocookie.net/__cb20110823151746/finaldestination/images/5/56/Theater-Carre.jpg" />
+  <img class = "silly2" src = "http://img2.wikia.nocookie.net/__cb20110823151746/finaldestination/images/5/56/Theater-Carre.jpg" />
+  <h1 class = "fancy"> Theatre Central </h1>
+
+
     <div id="map"></div>
     <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 </body>
