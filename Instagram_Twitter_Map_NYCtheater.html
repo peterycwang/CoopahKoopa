@@ -12,6 +12,9 @@
       }
       </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> <!--JQUERY SCRIPT -->
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> <!--GOOGLE MAPS SCRIPT -->
     <script> 
 
@@ -75,8 +78,40 @@
 } //end of the initiazlize function
 
     //END OF DRAW FUNCTION
+    var drawChart = function(trend){ 
+                // Build the chart
+                $('#container').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'NYCTheater: Twitter vs. Instagram'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Proportion of "nyctheater" Posts',
+                        data: trend
+                    }]
+                });
+            };
 
     //START OF INSTAGRAM AND MAP
+      var trend = []; 
 
 			$(document).ready(function(){
 
@@ -89,6 +124,7 @@
           center: new google.maps.LatLng(40.75, -73.9906) //centered at cooper, but zoomed to manhattan
           };
           var positions = [];
+
 
             for(var i=0; i<response.length; i++) {
               if(response[i].location != null) {
@@ -103,21 +139,28 @@
                   'icon': {   // make it an object rather than just a URL so can edit size.
                       "url": response[i].images.thumbnail.url,
                       "size": new google.maps.Size(50,50),
-                      "origin": new google.maps.Point(20,20)
+                      "origin": new google.maps.Point(20,20) // sets so image more centered
                           }
                 });
               };
             };
+            trend.push(['Instagramcracker', response.length]);
 
-            $.getJSON("http://cooper-union-search-proxy.herokuapp.com/twitter/search/nyctheater", function(response){
+            $.getJSON("http://cooper-union-search-proxy.herokuapp.com/twitter/search/nyctheater?since_id=539467092236308470&count=50 ", function(response){
               console.log(response.statuses.length);
               var tickerentries = [];
               for(var i=0; i<response.statuses.length; i++){
                 tickerentries.push(response.statuses[i].text);
                
               };
-               console.log(tickerentries);
+                  for(var i=0; i<tickerentries.length; i++){
+                   $("body").append("<p> " + tickerentries[i] + " </p>");
+                  };
+               trend.push(['Twitter', tickerentries.length]);
+               console.log(trend);
+               drawChart(trend);
           draw('map', mapOptions, positions);  
+
         }); // closes twitter getJSON
        }); //closes instagram getJSON
 
@@ -129,6 +172,7 @@
 </head>
 <body>
     <div id="map"></div>
+    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 </body>
 </html>
 
