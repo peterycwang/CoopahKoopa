@@ -1,0 +1,108 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>jQuery News Ticker - Your Inspiration Web</title>
+    <style> 
+    ul#ticker {
+    width: 220px;
+    height: 120px;
+    overflow: hidden;
+    }
+     
+    ul#ticker  li {
+        width: 200px;
+        height: 99px;
+        padding: 10px;
+        border-bottom: 1px dashed #ccc;
+    }
+     
+    ul#ticker li a {
+        color: #666;
+    }
+     
+    ul#ticker li span {
+        display: block;
+        color: #06C;
+    }
+
+
+    </style>  
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="./script/jquery-1.4.min.js"></script>
+    <script type="text/javascript" src="./script/common.js"></script>
+    <script> 
+    $(function()
+{
+    var ticker = function()
+    {
+        setTimeout(function(){
+            $('#ticker li:first').animate( {marginTop: '-120px'}, 800, function()
+            {
+                $(this).detach().appendTo('ul#ticker').removeAttr('style');
+            });
+            ticker();
+        }, 4000);
+    };
+    ticker();
+});
+    </script>
+ 
+    <link rel="stylesheet" href="./style/screen.css" type="text/css" media="all" />
+</head>
+<body>
+    <div id="wrap">
+        <div id="head" class="block"></div>
+ 
+        <div id="content">
+            <div id="info" class="block">
+                <ul id="ticker">
+ 
+                    <li>
+                        <span>Title Lorem Ipsum 1</span>
+                        <a href="#">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit, ante id porttitor faucibus, odio
+                            eros pellentesque sapien, at consectetur mi nibh at massa.
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <span>Title Lorem Ipsum 2</span>
+                        <a href="#">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit, ante id porttitor faucibus, odio
+                            eros pellentesque sapien, at consectetur mi nibh at massa.
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <span>Titlr Lorem Ipsum 3</span>
+                        <a href="#">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit, ante id porttitor faucibus, odio
+                            eros pellentesque sapien, at consectetur mi nibh at massa.
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <span>Title Lorem Ipsum 4</span>
+                        <a href="#">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit, ante id porttitor faucibus, odio
+                            eros pellentesque sapien, at consectetur mi nibh at massa.
+                        </a>
+                    </li>
+ 
+                    <li>
+                        <span>Title Lorem Ipsum 5</span>
+                        <a href="#">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit, ante id porttitor faucibus, odio
+                            eros pellentesque sapien, at consectetur mi nibh at massa.
+                        </a>
+                    </li>
+ 
+                </ul>
+            </div>
+        </div>
+ 
+    </div>
+ 
+</body>
+</html>
