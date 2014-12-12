@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tester</title>
+     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+     <script>
+     $(document).ready(function(){
+     	$("body").append("hi");
+     	var para = document.createElement("P");                       // Create a <p> node
+		var t = document.createTextNode("This is a paragraph.");      // Create a text node
+		para.appendChild(t);                                          // Append the text to <p>
+		document.getElementById("myDIV").appendChild(para);
+
+		var elle = "elle";
+		var telle = "telle";
+		var combo= elle + telle;
+		console.log(combo);
+     });
+     </script>
+  </head>
+  <body>
+  	<ul id = "ticker"> 
+  	</ul>
+ 	<div id = "myDIV"></div>
+  </body>
+</htmL>

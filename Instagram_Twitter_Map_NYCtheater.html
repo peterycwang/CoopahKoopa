@@ -1,10 +1,33 @@
 <!DOCTYPE html>
+<!-- Just added ticker stuff up to the javascript script links -->
 <html>
   <head>
-    <title>Instagram Map</title>
+    <title>Your Source for NYC Theater</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
       <style>
+      ul#ticker {
+      width: 220px;
+      height: 120px;
+      overflow: hidden;
+      }
+       
+      ul#ticker  li {
+          width: 200px;
+          height: 99px;
+          padding: 10px;
+          border-bottom: 1px dashed #ccc;
+          color: blue;
+      }
+       
+      ul#ticker li a {
+          color: #666;
+      }
+       
+      ul#ticker li span {
+          display: block;
+          color: #06C;
+      }
       body{
         background-color: cyan;
       }
@@ -37,7 +60,7 @@
 
       </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> <!--JQUERY SCRIPT -->
-    <!--Ticker script -->
+    <!--Ticker script, seems to work without? -->
  <script type="text/javascript" src="./script/jquery-1.4.min.js"></script>
     <script type="text/javascript" src="./script/common.js"></script> 
 
@@ -146,6 +169,7 @@
 
 			$(document).ready(function(){
 
+
         $.getJSON("http://cooper-union-instagram-proxy.herokuapp.com/search/tag/nyctheater?count=50", function(response){
 
 				  console.log(response.length);  //number of entries
@@ -172,7 +196,7 @@
                       "size": new google.maps.Size(50,50),
                       "origin": new google.maps.Point(20,20) // sets so image more centered
                           },
-                  'animation': google.maps.Animation.BOUNCE,
+                  'animation': google.maps.Animation.DROP,
                 });
                  
               };
@@ -186,9 +210,12 @@
                 tickerentries.push(response.statuses[i].text);
                
               };
+                  var combo = "<ul id= 'ticker'>";
                   for(var i=0; i<tickerentries.length; i++){
-                   $("body").append("<p> " + tickerentries[i] + " </p>");
+                  combo = combo + "<li>" + tickerentries[i] + "</li>";
                   };
+                  combo = combo + "</ul>";
+                  $("body").append(combo);
                trend.push(['Twitter', tickerentries.length]);
                console.log(trend);
                drawChart(trend);
