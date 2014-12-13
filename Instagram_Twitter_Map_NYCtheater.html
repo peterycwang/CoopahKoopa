@@ -6,20 +6,28 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
       <style>
-      #map{
-        float: left;
-      }
+     @import url(http://fonts.googleapis.com/css?family=Lobster|Kreon|Indie+Flower);
+     p{
+      background-color: #680000;
+      color: yellow;
+      font-family: Kreon;
+      width: 75%;
+      margin-left: 15%;
+     }
+
       #container{
         float: left;
         width: 30%;
       }
       ul#ticker {
       width: 220px;
-      height: 120px;
+      height: 140px;
       overflow: hidden;
       }
        
       ul#ticker  li {
+          font-weight: bold;
+          margin-top: 20px;
           width: 200px;
           height: 99px;
           padding: 10px;
@@ -50,10 +58,11 @@
 
       #map{
         width: 70%;
+        float:left;
       }
       .fancy{
         text-align: center;
-        font-family: cursive;
+        font-family: 'Lobster', cursive;
         color: cyan;
         background-color: blue;
         display:block;
@@ -161,7 +170,7 @@
             plotShadow: false
         },
         title: {
-            text: 'Proportion of Theater Posts by Popular Media'
+            text: 'Proportion of Theater Posts: Twitter vs. Instagram'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -189,7 +198,7 @@
   };
     // End High charts drawChart function
 
-    //START OF INSTAGRAM AND MAP
+    //START OF INSTAGRAM AND MAP ACTUAL CODE
       var trend = []; 
 
 			$(document).ready(function(){
@@ -258,7 +267,7 @@
                             $(this).detach().appendTo('ul#ticker').removeAttr('style');
                         });
                         ticker();
-                    }, 4000);
+                    }, 4100); // amount of time per post, 4.1 sec.
                 };
                 ticker();
 
@@ -281,7 +290,8 @@
   <img class = "silly2" src = "http://paulabrown.net/drama-masks-logo-218.png" />
   <h1 class = "fancy"> Theatre Central </h1>
 
-
+  <p> This page is devoted to avid theater-goers in New York City. Rather than using the NYCtheater site, I thought this would be useful, as we get the shows that people are happy enough to tweet about (social media perspective) and react to rather than just getting the shows from a list of discount tickets on a site like theatermania.com, and we get location info of where people tweeted about them. Recent responses only give you theater shows you can go to. Crowdsourcing and individual responses are utilized. </p>
+  <p> The run-down: Included are a map of recent instagram theater posts. 1) Observe marker location on map to see if distance from you is desirable. 2) Hover over icons to see text-content of post. 3) Click on post to see theater name if available. </p>
     <div id="map"></div>
     <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 </body>
