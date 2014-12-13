@@ -203,6 +203,8 @@
             };
             trend.push(['Instagramcracker', response.length]);
 
+            // Start Twitter GetJson
+
             $.getJSON("http://cooper-union-search-proxy.herokuapp.com/twitter/search/nyctheater?since_id=539467092236308470&count=50 ", function(response){
               console.log(response.statuses.length);
               var tickerentries = [];
@@ -216,6 +218,19 @@
                   };
                   combo = combo + "</ul>";
                   $("body").append(combo);
+
+               var ticker = function()
+                {
+                    setTimeout(function(){
+                        $('#ticker li:first').animate( {marginTop: '-120px'}, 800, function()
+                        {
+                            $(this).detach().appendTo('ul#ticker').removeAttr('style');
+                        });
+                        ticker();
+                    }, 4000);
+                };
+                ticker();
+                
                trend.push(['Twitter', tickerentries.length]);
                console.log(trend);
                drawChart(trend);
