@@ -6,6 +6,13 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
       <style>
+      #map{
+        float: left;
+      }
+      #container{
+        float: left;
+        width: 30%;
+      }
       ul#ticker {
       width: 220px;
       height: 120px;
@@ -18,6 +25,8 @@
           padding: 10px;
           border-bottom: 1px dashed #ccc;
           color: blue;
+          background-color: #fff;
+          background-color: rgba(255,255,255,0.5);
       }
        
       ul#ticker li a {
@@ -28,8 +37,10 @@
           display: block;
           color: #06C;
       }
-      body{
-        background-color: cyan;
+      html{
+        background-size: cover;
+        background-image: url("http://chiangmai.thaivisa.com/wp-content/uploads/movie-theaters-and-venues.jpg");
+        background-repeat: no-repeat;
       }
       html, body, #map {
         height: 100%;
@@ -38,7 +49,7 @@
       }
 
       #map{
-        width: 700px;
+        width: 70%;
       }
       .fancy{
         text-align: center;
@@ -61,9 +72,6 @@
       </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> <!--JQUERY SCRIPT -->
     <!--Ticker script, seems to work without? -->
- <script type="text/javascript" src="./script/jquery-1.4.min.js"></script>
-    <script type="text/javascript" src="./script/common.js"></script> 
-
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> <!--GOOGLE MAPS SCRIPT -->
@@ -96,14 +104,14 @@
         
       }
 
-       //loop through the markers, and add pop-up windows to them
+       //loop through the markers, and add pop-up windows to them for links
        for (i in markers) {
 
       //create a template with two placeholder to replace
       var popUpTemplate = '<div class="content"><a href="{{link}}">{{content}}</a></div>';
 
       //replace the content placeholder
-      popUps[i] = popUpTemplate.replace('{{content}}', positions[i].title);
+      popUps[i] = popUpTemplate.replace('{{content}}', positions[i].name);
 
       //replace the link placeholder
       popUps[i] = popUps[i].replace('{{link}}', positions[i].link);
@@ -111,7 +119,8 @@
       //create a new info window
       infoWindows[i] = new google.maps.InfoWindow({
       //the contents is the string-replaced template we created within this loop
-      content:popUps[i]
+      content:popUps[i],
+      maxWidth:200
       });
 
       //when a marker is clicked on
@@ -127,41 +136,57 @@
       }
     }(i));
   }
-} //end of the initiazlize function
+} //end of the initialize function
 
     //END OF DRAW FUNCTION
     //Start HighCharts drawChart Function 
     var drawChart = function(trend){ 
-                // Build the chart
-                $('#container').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false
+                
+    // Radialize the colors
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+            stops: [
+                [0, color],
+                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    });
+
+    // Build the chart
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Proportion of Theater Posts by Popular Media'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                     },
-                    title: {
-                        text: 'NYCTheater: Twitter vs. Instagram'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: 'Proportion of "nyctheater" Posts',
-                        data: trend
-                    }]
-                });
-            };
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Proportion of Posts',
+            data: trend
+        }]
+    });
+  };
     // End High charts drawChart function
 
     //START OF INSTAGRAM AND MAP
@@ -175,8 +200,8 @@
 				  console.log(response.length);  //number of entries
  
           var mapOptions = {
-          zoom: 12,
-          center: new google.maps.LatLng(40.75, -73.9906) //centered at cooper, but zoomed to manhattan
+          zoom: 11,
+          center: new google.maps.LatLng(40.77, -73.9906) //centered at cooper, but zoomed to manhattan
           };
           var positions = [];
 
@@ -185,11 +210,17 @@
               if(response[i].location != null) {
                 var latitude = response[i].location.latitude;
                 var longitude = response[i].location.longitude;
+                if(response[i].location.name!= null){
+                  var name = response[i].location.name;
+                } else{
+                  var name  = response[i].caption.text;
+                };
 
                 positions.push(
                 {
                   'title':response[i].caption.text,
                   'map': new google.maps.LatLng(latitude, longitude),
+                  'name': name,
                   'link': response[i].link, // link to instagram post
                   'icon': {   // make it an object rather than just a URL so can edit size.
                       "url": response[i].images.thumbnail.url,
@@ -214,7 +245,7 @@
               };
                   var combo = "<ul id= 'ticker'>";
                   for(var i=0; i<tickerentries.length; i++){
-                  combo = combo + "<li>" + tickerentries[i] + "</li>";
+                  combo = combo + "<li><span>" + tickerentries[i] + "</span></li>";
                   };
                   combo = combo + "</ul>";
                   $("body").append(combo);
@@ -230,7 +261,7 @@
                     }, 4000);
                 };
                 ticker();
-                
+
                trend.push(['Twitter', tickerentries.length]);
                console.log(trend);
                drawChart(trend);
