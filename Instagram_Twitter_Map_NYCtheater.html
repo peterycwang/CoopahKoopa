@@ -92,6 +92,7 @@ div#theatre:hover #curtain-right {
       height: 140px;
       overflow: hidden;
       float: right;
+      background-image: url('http://www.avalancheconcertlighting.com/wp-content/uploads/2013/12/Theatrical-Lighting-Stage.jpg');
       }
        
       .img{
@@ -151,7 +152,11 @@ div#theatre:hover #curtain-right {
         height: 10%;
         float: right;
       }
-
+      @media all and (max-width: 550px){
+        #theatre p:first-of-type:before {
+          border-radius: 10px;
+        }
+      }
       </style>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> <!--JQUERY SCRIPT -->
     <script src="http://code.highcharts.com/highcharts.js"></script>
